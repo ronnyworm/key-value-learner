@@ -14,6 +14,8 @@ jQuery(document).ready(function($){
 		$("#" + id).css('color', 'black');
 	}
 
+	Math.seedrandom(new Date().getTime());
+
 	function shuffle(a) {
 	    var j, x, i;
 	    for (i = a.length - 1; i > 0; i--) {
