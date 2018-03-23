@@ -36,7 +36,7 @@ jQuery(document).ready(function($){
 		for(var i = 0, l = pairs.length; i < l; i++){
 			result += "<div class='row'>";
 			result += "<div class='cell' data-title='" + headers[0] + "'>" + pairs[indices[i]][0] + "</div>";
-			result += "<div onclick='window.show(" + nummer + ")' id='" + nummer + "' style='color:white' class='cell' data-title='" + headers[1] + "'>" + pairs[indices[i]][1] + "</div>";
+			result += "<div onclick='window.show(" + nummer + ")' id='" + nummer + "' style='color:white' class='cell solution' data-title='" + headers[1] + "'>" + pairs[indices[i]][1] + "</div>";
 			result += "</div>";
 
 			nummer += 1;

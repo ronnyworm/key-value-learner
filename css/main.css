@@ -223,8 +223,7 @@ iframe {
   width: 100% !important;
 }
 
-.row:hover {
-  background-color: #ececff;
+.solution:hover {
   cursor: pointer;
 }
 
@@ -257,5 +256,9 @@ iframe {
 
   .table, .row, .cell {
     width: 100% !important;
+  }
+
+  .row:hover {
+    background-color: #ececff;
   }
 }
