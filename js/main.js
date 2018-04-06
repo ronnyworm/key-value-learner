@@ -1,4 +1,12 @@
 jQuery(document).ready(function($){
+	Object.size = function(obj) {
+	    var size = 0, key;
+	    for (key in obj) {
+	        if (obj.hasOwnProperty(key)) size++;
+	    }
+	    return size;
+	};
+
 	function generateHeaders(arr) {
 		result = "";
 
@@ -63,5 +71,12 @@ jQuery(document).ready(function($){
 
 
 	$("#headers").append(generateHeaders(window.headers));
-	$(generateRows(window.headers, window.pairs)).insertAfter("#headers");
+
+	if(Object.size(window.pairs) == 1){
+		Object.keys(window.pairs).forEach(function (key) { 
+			$("#headline").html(key);
+		    var value = window.pairs[key];
+		    $(generateRows(window.headers, value)).insertAfter("#headers");
+		})	
+	}
 });
