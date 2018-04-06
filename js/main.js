@@ -11,6 +11,11 @@ jQuery(document).ready(function($){
 	  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)','i').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 	}
 
+	function round(number){
+		//return (Math.round(number * 100) / 100.0);
+		return Math.round(number);
+	}
+
 	function generateHeaders(arr) {
 		result = "";
 
@@ -24,14 +29,20 @@ jQuery(document).ready(function($){
 	window.showhide = function (id) {
 		if(document.getElementById(id).style.color == 'white') {
 			document.getElementById(id).style.color = 'black';
+			window.correct += 1;
 		}
 		else{
 			document.getElementById(id).style.color = 'white';
+			document.getElementById(id).style.border = '2px solid orange';
+			window.correct -= 1;
+			window.wrong += 1;
 		}
-	}
+		$("#correct").html(round(window.correct * 100/ (window.correct + window.wrong)));
+		$("#wrong").html(round(window.wrong * 100 / (window.correct + window.wrong)));
+		$("#total").html(window.correct + window.wrong);
 
-	window.mark = function (id) {
-		document.getElementById(id).style.border = '2px solid orange';
+		$("#correctspan").css("font-size", "" + (0.1 + window.correct * 2 / (window.correct + window.wrong)) + "em");
+		$("#wrongspan").css("font-size", "" + (0.1 + window.wrong * 2 / (window.correct + window.wrong)) + "em");
 	}
 
 	Math.seedrandom(new Date().getTime());
@@ -62,7 +73,7 @@ jQuery(document).ready(function($){
 				hint = "";
 
 			result += "<div class='cell' data-title='" + headers[0] + "'>" + pairs[indices[i]][0] + hint + "</div>";
-			result += "<div onclick='window.showhide(" + nummer + ")' ondblclick='window.mark(" + nummer + ")' id='" + nummer + "' style='color:white' class='cell solution' data-title='" + headers[1] + "'>" + pairs[indices[i]][1] + "</div>";
+			result += "<div onclick='window.showhide(" + nummer + ")' id='" + nummer + "' style='color:white' class='cell solution' data-title='" + headers[1] + "'>" + pairs[indices[i]][1] + "</div>";
 
 
 			result += "</div>";
@@ -77,6 +88,9 @@ jQuery(document).ready(function($){
 	if(pairSet == null || !(pairSet in window.pairs) ){
 		pairSet = Object.keys(window.pairs)[0];
 	}
+
+	window.correct = 0;
+	window.wrong = 0;
 
 	$("#headline").html(pairSet);
 	$("#headers").append(generateHeaders(window.headers));
