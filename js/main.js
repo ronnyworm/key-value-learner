@@ -7,6 +7,10 @@ jQuery(document).ready(function($){
 	    return size;
 	};
 
+	function getURLParameter(name){
+	  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)','i').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+	}
+
 	function generateHeaders(arr) {
 		result = "";
 
@@ -69,14 +73,13 @@ jQuery(document).ready(function($){
 		return result;
 	}
 
-
-	$("#headers").append(generateHeaders(window.headers));
-
-	if(Object.size(window.pairs) == 1){
-		Object.keys(window.pairs).forEach(function (key) { 
-			$("#headline").html(key);
-		    var value = window.pairs[key];
-		    $(generateRows(window.headers, value)).insertAfter("#headers");
-		})	
+	pairSet = getURLParameter("pairs");
+	if(pairSet == null || !(pairSet in window.pairs) ){
+		pairSet = Object.keys(window.pairs)[0];
 	}
+
+	$("#headline").html(pairSet);
+	$("#headers").append(generateHeaders(window.headers));
+    var value = window.pairs[pairSet];
+    $(generateRows(window.headers, value)).insertAfter("#headers");	
 });
