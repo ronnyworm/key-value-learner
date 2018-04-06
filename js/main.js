@@ -9,9 +9,17 @@ jQuery(document).ready(function($){
 		return result;
 	}
 
+	window.showhide = function (id) {
+		if(document.getElementById(id).style.color == 'white') {
+			document.getElementById(id).style.color = 'black';
+		}
+		else{
+			document.getElementById(id).style.color = 'white';
+		}
+	}
 
-	window.show = function(id){
-		$("#" + id).css('color', 'black');
+	window.mark = function (id) {
+		document.getElementById(id).style.border = '2px solid orange';
 	}
 
 	Math.seedrandom(new Date().getTime());
@@ -42,7 +50,7 @@ jQuery(document).ready(function($){
 				hint = "";
 
 			result += "<div class='cell' data-title='" + headers[0] + "'>" + pairs[indices[i]][0] + hint + "</div>";
-			result += "<div onclick='window.show(" + nummer + ")' id='" + nummer + "' style='color:white' class='cell solution' data-title='" + headers[1] + "'>" + pairs[indices[i]][1] + "</div>";
+			result += "<div onclick='window.showhide(" + nummer + ")' ondblclick='window.mark(" + nummer + ")' id='" + nummer + "' style='color:white' class='cell solution' data-title='" + headers[1] + "'>" + pairs[indices[i]][1] + "</div>";
 
 
 			result += "</div>";
