@@ -41,8 +41,8 @@ jQuery(document).ready(function($){
 		$("#wrong").html(round(window.wrong * 100 / (window.correct + window.wrong)));
 		$("#total").html(window.correct + window.wrong);
 
-		$("#correctspan").css("font-size", "" + (0.1 + window.correct * 2 / (window.correct + window.wrong)) + "em");
-		$("#wrongspan").css("font-size", "" + (0.1 + window.wrong * 2 / (window.correct + window.wrong)) + "em");
+		$("#correctspan").css("font-size", "" + (0.1 + window.correct * 1.5 / (window.correct + window.wrong)) + "em");
+		$("#wrongspan").css("font-size", "" + (0.1 + window.wrong * 1.5 / (window.correct + window.wrong)) + "em");
 	}
 
 	Math.seedrandom(new Date().getTime());
@@ -85,15 +85,24 @@ jQuery(document).ready(function($){
 	}
 
 	pairSet = getURLParameter("pairs");
-	if(pairSet == null || !(pairSet in window.pairs) ){
-		pairSet = Object.keys(window.pairs)[0];
+	if((pairSet == null || !(pairSet in window.pairs)) && Object.size(window.pairs) != 1 ){
+		$("#askdiv").hide();
+		Object.keys(window.pairs).forEach(function (key) { 
+		    $("#select").append("<div class='row'><div class='cell'><a href='?pairs=" + key + "'>" + key + "</a></div></div>");
+		});
+		$("#selectdiv").show();
+	}
+	else{
+		if(Object.size(window.pairs) == 1){
+			pairSet = Object.keys(window.pairs)[0];
+		}
+		window.correct = 0;
+		window.wrong = 0;
+
+		$("#headline").html(pairSet);
+		$("#headers").append(generateHeaders(window.headers));
+	    var value = window.pairs[pairSet];
+	    $(generateRows(window.headers, value)).insertAfter("#headers");	
 	}
 
-	window.correct = 0;
-	window.wrong = 0;
-
-	$("#headline").html(pairSet);
-	$("#headers").append(generateHeaders(window.headers));
-    var value = window.pairs[pairSet];
-    $(generateRows(window.headers, value)).insertAfter("#headers");	
 });
