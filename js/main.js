@@ -74,6 +74,7 @@ jQuery(document).ready(function($){
 
 			result += "<div class='cell' data-title='" + headers[0] + "'>" + pairs[indices[i]][0] + hint + "</div>";
 			result += "<div onclick='window.showhide(" + nummer + ")' id='" + nummer + "' style='color:white' class='cell solution' data-title='" + headers[1] + "'>" + pairs[indices[i]][1] + "</div>";
+			result += "<div onclick='window.customfunc(\"" + pairs[indices[i]][1].replace("'", "\\'") + "\")' class='cell' data-title='" + headers[2] + "'>" + window.moresymbol + "</div>";
 
 
 			result += "</div>";
