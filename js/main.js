@@ -100,6 +100,8 @@ jQuery(document).ready(function($){
 		window.correct = 0;
 		window.wrong = 0;
 
+		document.title = pairSet;
+
 		$("#headline").html(pairSet);
 		$("#headers").append(generateHeaders(window.headers));
 	    var value = window.pairs[pairSet];
